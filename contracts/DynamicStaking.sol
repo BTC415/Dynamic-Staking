@@ -4,7 +4,7 @@ pragma solidity ^0.8.28;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "./MRKST.sol";
@@ -72,8 +72,8 @@ contract DynamicStaking is
         ADMIN_ROLE = keccak256("ADMIN_ROLE");
 
         // Set up roles
-        _setupRole(ADMIN_ROLE, admin1);
-        _setupRole(ADMIN_ROLE, admin2);
+        grantRole(ADMIN_ROLE, admin1);
+        grantRole(ADMIN_ROLE, admin2);
 
         MRKST = IERC20(_MRKST);
         base = 10 ** 18;
