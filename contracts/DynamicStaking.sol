@@ -209,19 +209,19 @@ contract DynamicStaking is
         return rewards;
     }
 
-    function rewardForSTK(
+    function rewardForStake(
         address stakeholder,
-        uint256 stkAmount
+        uint256 stakeAmount
     ) public view returns (uint256) {
         uint256 stakeholderStake = stakeholderToStake[stakeholder].stakedMRKST;
         uint256 stakeholderShares = stakeholderToStake[stakeholder].shares;
 
-        require(stakeholderStake >= stkAmount, "Not enough staked!");
+        require(stakeholderStake >= stakeAmount, "Not enough staked!");
 
         uint256 stakedRatio = (stakeholderStake * base) / stakeholderShares;
         uint256 currentRatio = (MRKST.balanceOf(address(this)) * base) /
             totalShares;
-        uint256 sharesToWithdraw = (stkAmount * stakeholderShares) /
+        uint256 sharesToWithdraw = (stakeAmount * stakeholderShares) /
             stakeholderStake;
 
         if (currentRatio <= stakedRatio) {
@@ -250,7 +250,7 @@ contract DynamicStaking is
         return stakeholders.length();
     }
 
-    function refundLockedSTK(uint256 from, uint256 to) public hasAdminRole {
+    function refundLockedStake(uint256 from, uint256 to) public hasAdminRole {
         require(to <= stakeholders.length(), "Invalid `to` param");
         uint256 s;
 
