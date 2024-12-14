@@ -2,12 +2,10 @@ import { ethers, upgrades } from "hardhat";
 
 async function main() {
   const {ADMIN_1, ADMIN_2} = process.env;
-  const MRKST = await ethers.getContractFactory("MRKST");
-  const mrkst = await MRKST.deploy("100000000000000000000000000000");
+  const instanceMRKST = await ethers.deployContract("MRKST");
+  await instanceMRKST.waitForDeployment();
 
-  await mrkst.deployed();
-
-  console.log('MRKST deployed to:', mrkst.address);
+  console.log('instanceMRKST deployed to:', instanceMRKST.getAddress());
 
   const Staking = await ethers.getContractFactory("DynamicStaking");
   const staking = await upgrades.deployProxy(
@@ -15,7 +13,7 @@ async function main() {
     [
       ADMIN_1,
       ADMIN_2,
-      mrkst.address
+      instanceMRKST.getAddress()
     ],
     {
       initializer: "initialize",
@@ -23,11 +21,11 @@ async function main() {
     }
   );
 
-  await staking.deployed();
+  await staking.waitForDeployment();
 
   console.log("Staking deployed to:", staking.address);
 
-  const approvalTx = await mrkst.approve(staking.address, ethers.parseUnits('100'));
+  const approvalTx = await instanceMRKST.approve(staking.getAddress(), ethers.parseUnits('100'));
   console.log('approvalTx hash', approvalTx.hash);
 
   const setInitialRatioTx = await staking.setInitialRatio(ethers.parseUnits('100'));
