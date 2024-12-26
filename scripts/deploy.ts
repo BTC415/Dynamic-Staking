@@ -22,7 +22,6 @@ async function main() {
   );
 
   await staking.waitForDeployment();
-
   console.log("Staking deployed to:", staking.address);
 
   const approvalTx = await instanceMRKST.approve(staking.getAddress(), ethers.parseUnits('100'));
