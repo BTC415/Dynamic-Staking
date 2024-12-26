@@ -62,10 +62,10 @@ contract DynamicStaking is
     }
 
     /**
-    * @dev Initializes the contract.
-    * @param admin1 The address of the first admin.
-    * @param admin2 The address of the second admin.
-    * @param _MRKST The address of the MRKST token.
+     * @dev Initializes the contract.
+     * @param admin1 The address of the first admin.
+     * @param admin2 The address of the second admin.
+     * @param _MRKST The address of the MRKST token.
      */
     function initialize(
         address admin1,
@@ -86,23 +86,23 @@ contract DynamicStaking is
     }
 
     /**
-    * @dev Pauses the contract.
+     * @dev Pauses the contract.
      */
     function pauseContract() public hasAdminRole {
         _pause();
     }
 
     /**
-    * @dev Unpauses the contract.
+     * @dev Unpauses the contract.
      */
     function unPauseContract() public hasAdminRole {
         _unpause();
     }
 
     /**
-    * @dev Sets the initial ratio of MRKST to shares.
-    * @param stakeAmount The amount of MRKST to stake.
-    */
+     * @dev Sets the initial ratio of MRKST to shares.
+     * @param stakeAmount The amount of MRKST to stake.
+     */
     function setInitialRatio(
         uint256 stakeAmount
     ) public isInitialRatioNotSet hasAdminRole {
@@ -129,9 +129,9 @@ contract DynamicStaking is
     }
 
     /**
-    * @dev Creates a new stake.
-    * @param stakeAmount The amount of MRKST to stake.
-    */
+     * @dev Creates a new stake.
+     * @param stakeAmount The amount of MRKST to stake.
+     */
     function createStake(
         uint256 stakeAmount
     ) public whenNotPaused isInitialRatioSet {
@@ -153,9 +153,9 @@ contract DynamicStaking is
     }
 
     /**
-    * @dev Removes a stake.
-    * @param stakeAmount The amount of MRKST to remove.
-    */
+     * @dev Removes a stake.
+     * @param stakeAmount The amount of MRKST to remove.
+     */
     function removeStake(uint256 stakeAmount) public whenNotPaused {
         uint256 stakeholderStake = stakeholderToStake[msg.sender].stakedMRKST;
         uint256 stakeholderShares = stakeholderToStake[msg.sender].shares;
@@ -197,6 +197,9 @@ contract DynamicStaking is
         );
     }
 
+    /**
+     * @dev Returns the total number of stakeholders.
+     */
     function getStkPerShare() public view returns (uint256) {
         return (MRKST.balanceOf(address(this)) * base) / totalShares;
     }
