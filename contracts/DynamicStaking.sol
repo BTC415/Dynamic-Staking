@@ -152,6 +152,10 @@ contract DynamicStaking is
         emit StakeAdded(msg.sender, stakeAmount, shares, block.timestamp);
     }
 
+    /**
+    * @dev Removes a stake.
+    * @param stakeAmount The amount of MRKST to remove.
+    */
     function removeStake(uint256 stakeAmount) public whenNotPaused {
         uint256 stakeholderStake = stakeholderToStake[msg.sender].stakedMRKST;
         uint256 stakeholderShares = stakeholderToStake[msg.sender].shares;
