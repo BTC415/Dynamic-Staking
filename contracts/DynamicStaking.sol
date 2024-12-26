@@ -128,6 +128,10 @@ contract DynamicStaking is
         emit StakeAdded(msg.sender, stakeAmount, stakeAmount, block.timestamp);
     }
 
+    /**
+    * @dev Creates a new stake.
+    * @param stakeAmount The amount of MRKST to stake.
+    */
     function createStake(
         uint256 stakeAmount
     ) public whenNotPaused isInitialRatioSet {
