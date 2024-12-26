@@ -85,14 +85,24 @@ contract DynamicStaking is
         base = 10 ** 18;
     }
 
+    /**
+    * @dev Pauses the contract.
+     */
     function pauseContract() public hasAdminRole {
         _pause();
     }
 
+    /**
+    * @dev Unpauses the contract.
+     */
     function unPauseContract() public hasAdminRole {
         _unpause();
     }
 
+    /**
+    * @dev Sets the initial ratio of MRKST to shares.
+    * @param stakeAmount The amount of MRKST to stake.
+    */
     function setInitialRatio(
         uint256 stakeAmount
     ) public isInitialRatioNotSet hasAdminRole {
