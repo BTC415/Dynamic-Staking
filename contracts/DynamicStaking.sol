@@ -61,6 +61,12 @@ contract DynamicStaking is
         _;
     }
 
+    /**
+    * @dev Initializes the contract.
+    * @param admin1 The address of the first admin.
+    * @param admin2 The address of the second admin.
+    * @param _MRKST The address of the MRKST token.
+     */
     function initialize(
         address admin1,
         address admin2,
@@ -78,8 +84,6 @@ contract DynamicStaking is
         MRKST = IERC20(_MRKST);
         base = 10 ** 18;
     }
-
-    function _authorizeUpgrade(address) internal override hasAdminRole {}
 
     function pauseContract() public hasAdminRole {
         _pause();
